@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Data</title>
+</head>
+
+<style>
+    .container {
+        font-family: arial,helvetica,sans-serif;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>Get Data Only</h1>
+        <table>
+            <thead>
+                <tr>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>Email</td>
+                    <td>Gender</td>
+                    <td>IP Address</td>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+<script>
+    function getData(){
+        fetch('http://localhost:3000/getData/')
+            .then(res => res.json())
+            .then(res => {
+                let output = ''
+                res.forEach(data => {
+                    output += `
+                        <tr>
+                            <td>${data.first_name}</td>
+                            <td>${data.last_name}</td>
+                            <td>${data.email}</td>
+                            <td>${data.gender}</td>
+                            <td>${data.ip_address}</td>
+                        </tr>
+                    `
+                })
+                document.querySelector('tbody').innerHTML = output
+            })
+    }
+
+    getData()
+</script>
